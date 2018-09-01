@@ -31,10 +31,22 @@ router.use(function(req, res, next) {
   next(); // make sure we go to the next routes and don't stop here
 });
 
-// test route to make sure that everything is working (accesed at GET http://localhost:8080/api)
-router.get("/", function(req, res) {
-  res.json({ message: "Welcome to our records API" });
-});
+// // test route to make sure that everything is working (accesed at GET http://localhost:8080/api)
+// router.get("/", function(req, res) {
+//   res.json({ message: "Welcome to our records API" });
+// });
+
+// routes for our API will happen here
+// on routes that end in /records
+router
+  .route("/records")
+  // get all the records (accessed at GET http://localhost:8080/api/records)
+  .get(function(req, res) {
+    Record.find(function(err, records) {
+      if (err) res.send(err);
+      res.json(records);
+    });
+  });
 
 // Register our routes -------------------------------
 // All of our routes will be prefixed with /api
